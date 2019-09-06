@@ -1,0 +1,55 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        #用户服务
+        - id: kylin-user-service
+          uri: lb://kylin-user-service
+          predicates:
+            - Path=/${server.servlet.context-path}/business/**
+          filters:
+            - StripPrefix=1
+            - name: Hystrix
+              args:
+                name: kylin-user-service-hystrix
+                fallbackUri: forward:/fallback/kylin-user-service
+
+
+#Router Hystrix使用线程隔离
+hystrix.command.kylin-user-service-hystrix.execution.isolation.strategy: THREAD
+hystrix.command.kylin-user-service-hystrix.threadPoolKeyOverride: kylin-user-service-tpk
+
+
+#调整Router Hystrix线程池
+#用户服务
+hystrix.threadpool.kylin-user-service-tpk.coreSize: 500
+hystrix.threadpool.kylin-user-service-tpk.maximumSize: 2000
+hystrix.threadpool.kylin-user-service-tpk.allowMaximumSizeToDivergeFromCoreSize: true
+
+#鉴权中心
+hystrix.threadpool.kylin-auth-service.coreSize: 500
+hystrix.threadpool.kylin-auth-service.maximumSize: 2000
+hystrix.threadpool.kylin-auth-service.allowMaximumSizeToDivergeFromCoreSize: true
+
+
+#服务熔断设置
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 10000
+#hystrix.command.kylin-user-service-hystrix.execution.isolation.thread.timeoutInMilliseconds: 30000
+
+
+#开启内部服务熔断
+feign:
+  client:
+    config:
+      kylin-auth-service:
+        connectTimeout: 2000
+        readTimeout: 10000
+#hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds和
+#feign.client.config.kylin-auth-service.readTimeout时间哪个小哪个起作用,二者同时配置超时才起作用
+
+#网关策略
+gateway:
+  label-rule:
+    forbiddenRules: []
+  rate-limit-rule:
+    limitRules: []
