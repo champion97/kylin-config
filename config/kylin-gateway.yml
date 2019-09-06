@@ -6,7 +6,7 @@ spring:
         - id: kylin-user-service
           uri: lb://kylin-user-service
           predicates:
-            - Path=/${server.servlet.context-path}/business/**
+            - Path=/${server.servlet.context-path}/user/**
           filters:
             - StripPrefix=1
             - name: Hystrix
