@@ -1,0 +1,12 @@
+#jwt配置
+token:
+  issuer: champion97
+  secret: 57e3ee14b1684858861963212cab40b8
+  expire: 360 #day
+
+#登录缓存地址
+spring:
+  redis:
+    host: localhost
+    database: 0
+    port: 6379
