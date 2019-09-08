@@ -1,8 +1,11 @@
 #jwt配置
-token:
+jwt:
   issuer: champion97
   secret: 57e3ee14b1684858861963212cab40b8
-  expire: 360 #day
+  expire: 365 #day
+  public-key: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAKasrUIHPCuUv39HvjvTsCYz755I7oLzoqDAvp2V/qyYk9S7CSKd+UffZUIi1fS8PnIFnLl3pqftIfwwrz45NO8CAwEAAQ==
+  private-key: MIIBVQIBADANBgkqhkiG9w0BAQEFAASCAT8wggE7AgEAAkEApqytQgc8K5S/f0e+O9OwJjPvnkjugvOioMC+nZX+rJiT1LsJIp35R99lQiLV9Lw+cgWcuXemp+0h/DCvPjk07wIDAQABAkAc0yQrlSC80L7FflzR7+w4zyaTkz1cfFIVxv+wNS6UHo+Oy3vnXk/lknOmVFjUyPNcqv8uayfwbOXkA1snDJhhAiEA0MYDEo8I8f/mcNgepTBk7EK7bq23JBcqts807sXpDocCIQDMYLsQfKyUofNqexeWyf4lBP+8oK60Fd4l8ugqTZWYWQIhALmpfo4Amenss1hjOk2ZTgc2CU2SOy5jU98jQmWdp3b9AiAFcRnqAXfS6VEC584j/LLgp3ZrvleIggCNQB+AaNpv2QIhAMytIXiy9l7DR8zUj+Bfv3+KC8EE3Ryv0kwJPFbCbX6w
+
 
 #登录缓存地址
 spring:
