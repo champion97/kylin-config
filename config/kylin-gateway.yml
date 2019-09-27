@@ -64,8 +64,8 @@ feign:
 gateway:
   white-list:
     patterns:
-      - /user/login
-      - /user/register
+      - /**/user/login
+      - /**/user/register
   label-rule:
     forbiddenRules: []
   rate-limit-rule:
