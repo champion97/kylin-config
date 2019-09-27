@@ -6,17 +6,6 @@ spring:
   cloud:
     gateway:
       routes:
-        #IP限流
-#        - id: limit_route
-#            uri: /cgi/
-#            predicates:
-#              - After=2019-01-01T00:00:00+08:00[Asia/Shanghai]
-#            filters:
-#              - name: RequestRateLimiter
-#                args:
-#                  key-resolver: '#{@hostAddrKeyResolver}'
-#                  redis-rate-limiter.replenishRate: 1
-#                  redis-rate-limiter.burstCapacity: 3
         #鉴权服务
         - id: kylin-auth-service
           uri: lb://kylin-auth-service
@@ -39,6 +28,11 @@ spring:
               args:
                 name: kylin-user-service-hystrix
                 fallbackUri: forward:/fallback/kylin-user-service
+            - name: RequestRateLimiter
+              args:
+                key-resolver: '#{@hostAddrKeyResolver}'
+                redis-rate-limiter.replenishRate: 1
+                redis-rate-limiter.burstCapacity: 3
 
 
 #Router Hystrix使用线程隔离
