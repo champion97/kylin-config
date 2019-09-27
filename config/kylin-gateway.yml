@@ -1,6 +1,6 @@
 spring:
   redis:
-    host: loclahost
+    host: localhost
     port: 6379
     database: 1
   cloud:
@@ -28,7 +28,7 @@ spring:
               args:
                 name: kylin-user-service-hystrix
                 fallbackUri: forward:/fallback/kylin-user-service
-            - name: RequestRateLimiter
+            - name: RequestRateLimiter #针对服务进行IP限流
               args:
                 key-resolver: '#{@hostAddrKeyResolver}'
                 redis-rate-limiter.replenishRate: 1
