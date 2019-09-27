@@ -10,7 +10,7 @@ spring:
         - id: limit_route
             uri: /cgi/
             predicates:
-#              - After=2019-02-26T00:00:00+08:00[Asia/Shanghai]
+              - After=2019-01-01T00:00:00+08:00[Asia/Shanghai]
             filters:
               - name: RequestRateLimiter
                 args:
