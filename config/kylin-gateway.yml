@@ -1,7 +1,22 @@
 spring:
+  redis:
+    host: loclahost
+    port: 6379
+    database: 1
   cloud:
     gateway:
       routes:
+        #IP限流
+        - id: limit_route
+            uri: /cgi/
+            predicates:
+              - After=2019-02-26T00:00:00+08:00[Asia/Shanghai]
+            filters:
+              - name: RequestRateLimiter
+                args:
+                  key-resolver: '#{@hostAddrKeyResolver}'
+                  redis-rate-limiter.replenishRate: 1
+                  redis-rate-limiter.burstCapacity: 3
         #鉴权服务
         - id: kylin-auth-service
           uri: lb://kylin-auth-service
@@ -66,7 +81,4 @@ gateway:
     patterns:
       - /**/user/login
       - /**/user/register
-  label-rule:
-    forbiddenRules: []
-  rate-limit-rule:
-    limitRules: []
+
